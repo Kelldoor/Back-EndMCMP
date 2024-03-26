@@ -1,0 +1,32 @@
+CREATE DATABASE IF NOT EXISTS MCMP;
+USE MCMP;
+
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY AUTO_INCREMENT,
+    FirstName VARCHAR(20) NOT NULL,
+    LastName VARCHAR(20) NOT NULL,
+    StudentID VARCHAR(20),
+    StudentEmail VARCHAR(50) UNIQUE NOT NULL,
+    Username VARCHAR(20) UNIQUE NOT NULL,
+    PasswordHash VARCHAR(255) NOT NULL,
+    PasswordSalt VARCHAR(255) NOT NULL, -- Extra security, random value is stored for password protection
+	UserAdmin TINYINT(1) NOT NULL,
+	UserBanned TINYINT(1) NOT NULL,
+	UserCreated DATETIME NOT NULL
+);
+
+CREATE TABLE Items (
+	ItemID INT PRIMARY KEY AUTO_INCREMENT,
+	ItemName VARCHAR(20) NOT NULL,
+	ItemDesc VARCHAR(300) NOT NULL,
+	ItemCondition VARCHAR(10) NOT NULL,
+	ItemAdded DATETIME NOT NULL,
+	ItemPrice FLOAT(3, 2) NOT NULL,
+	ItemQuantity INT NOT NULL,
+	ItemWanted TINYINT(1) NOT NULL,
+	ItemImage VARCHAR(50) NOT NULL,
+	UserID INT NOT NULL,
+	FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+DROP TABLE Users;
