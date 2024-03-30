@@ -9,7 +9,6 @@ CREATE TABLE Users (
     StudentEmail VARCHAR(50) UNIQUE NOT NULL CHECK (StudentEmail LIKE '%@my.sctcc.edu'), -- Constraint for ensuring email ends in @my.sctcc.edu
     Username VARCHAR(20) UNIQUE NOT NULL,
     PasswordHash VARCHAR(255) NOT NULL,
-    PasswordSalt VARCHAR(255) NOT NULL, -- Extra security, random value is stored for password protection
     UserAdmin TINYINT NOT NULL CHECK (UserAdmin IN (0,1)), -- Constraint for checking Admin Status
     UserBanned TINYINT NOT NULL CHECK (UserBanned IN (0,1)), -- Constraint for checking if user is banned
     UserCreated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -19,7 +18,7 @@ CREATE TABLE Items (
 	ItemID INT PRIMARY KEY AUTO_INCREMENT,
 	ItemName VARCHAR(30) NOT NULL,
 	ItemDesc VARCHAR(300) NOT NULL,
-    ItemCondition VARCHAR(30) NOT NULL CHECK (ItemCondition IN ('Used - Like New', 'Used - Good', 'Used - Fair', 'New')), -- Constraint for checking item condition
+        ItemCondition VARCHAR(30) NOT NULL CHECK (ItemCondition IN ('Used - Like New', 'Used - Good', 'Used - Fair', 'New')), -- Constraint for checking item condition
 	ItemAdded DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	ItemPrice FLOAT NOT NULL CHECK (ItemPrice >= 0), -- Constraint to ensure price is 0 or greater.
 	ItemQuantity INT NOT NULL CHECK (ItemQuantity > 0), -- Constraint to ensure quantity is greater than 0.
