@@ -9,9 +9,9 @@ CREATE TABLE Users (
     StudentEmail VARCHAR(50) UNIQUE NOT NULL CHECK (StudentEmail LIKE '%@my.sctcc.edu'), -- Constraint for ensuring email ends in @my.sctcc.edu
     Username VARCHAR(20) UNIQUE NOT NULL,
     PasswordHash VARCHAR(255) NOT NULL,
-    UserAdmin TINYINT NOT NULL CHECK (UserAdmin IN (0,1)), -- Constraint for checking Admin Status
-    UserBanned TINYINT NOT NULL CHECK (UserBanned IN (0,1)), -- Constraint for checking if user is banned
-    UserCreated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    UserAdmin TINYINT NOT NULL DEFAULT '0', -- Constraint for checking Admin Status
+    UserBanned TINYINT NOT NULL DEFAULT '0', -- Constraint for checking if user is banned
+    UserCreated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Items (
@@ -33,11 +33,11 @@ DROP TABLE Users;
 DROP DATABASE MCMP;
 
 -- SAmple data for the users table
-INSERT INTO Users (FirstName, LastName, StudentID, StudentEmail, Username, PasswordHash, PasswordSalt, UserAdmin, UserBanned)
+INSERT INTO Users (FirstName, LastName, StudentID, StudentEmail, Username, PasswordHash, UserAdmin, UserBanned)
 VALUES 
-('Brady', 'Peters', '123456', 'brady.peters@my.sctcc.edu', 'bradypeters', 'passwordhash1', 'salt1', 0, 0),
-('RJ', 'Smith', '654321', 'rj.smith@my.sctcc.edu', 'rjsmith', 'passwordhash2', 'salt2', 1, 0),
-('Kawhi', 'Leonard', '112233', 'kawhi.leonard@my.sctcc.edu', 'kawhileonard', 'passwordhash3', 'salt3', 0, 1);
+('Brady', 'Peters', '123456', 'brady.peters@my.sctcc.edu', 'bradypeters', 'passwordhash1',  0, 0),
+('RJ', 'Smith', '654321', 'rj.smith@my.sctcc.edu', 'rjsmith', 'passwordhash2', 1, 0),
+('Kawhi', 'Leonard', '112233', 'kawhi.leonard@my.sctcc.edu', 'kawhileonard', 'passwordhash3', 0, 1);
 
 
 -- Sample data for the items table
