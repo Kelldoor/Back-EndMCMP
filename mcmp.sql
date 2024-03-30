@@ -9,8 +9,8 @@ CREATE TABLE Users (
     StudentEmail VARCHAR(50) UNIQUE NOT NULL CHECK (StudentEmail LIKE '%@my.sctcc.edu'), -- Constraint for ensuring email ends in @my.sctcc.edu
     Username VARCHAR(20) UNIQUE NOT NULL,
     PasswordHash VARCHAR(255) NOT NULL,
-    UserAdmin TINYINT NOT NULL DEFAULT '0', -- Constraint for checking Admin Status
-    UserBanned TINYINT NOT NULL DEFAULT '0', -- Constraint for checking if user is banned
+    UserAdmin TINYINT NOT NULL DEFAULT '0',
+    UserBanned TINYINT NOT NULL DEFAULT '0', 
     UserCreated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
