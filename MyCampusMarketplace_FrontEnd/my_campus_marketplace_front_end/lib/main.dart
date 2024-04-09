@@ -268,3 +268,20 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     );
   }
 }
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'My Campus Marketplace',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoginSignupPage(),
+    );
+  }
+}
