@@ -1,6 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+String sessionState = "";
+
 Future<String> login(String userName, String passwordHash) async {
   try {
     // Sending login request to server
@@ -14,7 +16,9 @@ Future<String> login(String userName, String passwordHash) async {
 
     if (response.statusCode == 200) {
       if (data['success']) {
-        return "Success"; // Login was successful
+        // Login was successful
+        sessionState = data['data'];
+        return "Success";
       } else {
         if (data['reason'] == "banned") {
           return "Your account has been permanently banned. Please contact the administrators if you believe this is a mistake.";
