@@ -20,26 +20,26 @@ Future<String> login(String userName, String passwordHash) async {
         sessionState = data['data'];
         return "Success";
       } else {
-        if (data['reason'] == "banned") {
+        if (data['reason'][0] == "banned") {
           return "Your account has been permanently banned. Please contact the administrators if you believe this is a mistake.";
-        } else if (data['reason'] == "login") {
+        } else if (data['reason'][0] == "login") {
           return "Your username or password was incorrect. Try again or create a new account.";
-        } else if (data['reason'] == "server_error") {
+        } else if (data['reason'][0] == "server_error") {
           return "There was an issue with the server. Please try again later.";
-        } else if (data['reason'] == "wrong_method") {
+        } else if (data['reason'][0] == "wrong_method") {
           return "There was an issue with the application. Please contact the administrators.";
         } else {
           return "An error occurred. Please try again later.";
         }
       }
     } else {
-      if (data['reason'] == "banned") {
+      if (data['reason'][0] == "banned") {
         return "Your account has been permanently banned. Please contact the administrators if you believe this is a mistake.";
-      } else if (data['reason'] == "login") {
+      } else if (data['reason'][0] == "login") {
         return "Your username or password was incorrect. Try again or create a new account.";
-      } else if (data['reason'] == "server_error") {
+      } else if (data['reason'][0] == "server_error") {
         return "There was an issue with the server. Please try again later.";
-      } else if (data['reason'] == "wrong_method") {
+      } else if (data['reason'][0] == "wrong_method") {
         return "There was an issue with the application. Please contact the administrators.";
       } else {
         return "An error occurred. Please try again later.";
