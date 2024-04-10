@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:mycampusmarketplace/Models/user.dart';
 
+const String apiAddress = "http://10.0.2.2/api/";
+
 class UserClient {
   String sessionState = "";
   String errorMessage = "";
@@ -11,7 +13,7 @@ class UserClient {
     try {
       // Sending login request to server
       var response = await http.post(
-        Uri.parse('http://10.0.2.2/api/login.php'),
+        Uri.parse('${apiAddress}login.php'),
         body: {'userName': userName, 'passwordHash': passwordHash},
       );
 
@@ -59,7 +61,7 @@ class UserClient {
     try {
       var response = await http.post(
         // Sending signup request to server
-        Uri.parse('http://10.0.2.2/api/signup.php'),
+        Uri.parse('${apiAddress}signup.php'),
         body: {
           'firstName': firstName,
           'lastName': lastName,
@@ -93,7 +95,7 @@ class UserClient {
     try {
       // Sending login request to server
       var response = await http.post(
-        Uri.parse('http://10.0.2.2/api/logout.php'),
+        Uri.parse('${apiAddress}logout.php'),
         headers: {'Cookie': "PHPSESSID=$sessionState"},
       );
 
@@ -131,7 +133,7 @@ class UserClient {
     try {
       // Sending login request to server
       var response = await http.post(
-        Uri.parse('http://10.0.2.2/api/fetchuser.php'),
+        Uri.parse('${apiAddress}fetchuser.php'),
         headers: {'Cookie': "PHPSESSID=$sessionState"},
       );
 
