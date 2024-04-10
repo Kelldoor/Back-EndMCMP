@@ -14,4 +14,8 @@ class User {
     required this.userName,
     required this.passwordHash,
   });
+
+  String getFullName() {
+    return "$firstName $lastName";
+  }
 }
