@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mycampusmarketplace/Repositories/userClient.dart';
 import 'package:mycampusmarketplace/Views/aboutus.dart';
 import '../views/mainMenu.dart';
-import '../repositories/userClient.dart';
+
+final UserClient client = new UserClient();
 
 class LoginSignupPage extends StatefulWidget {
   const LoginSignupPage({Key? key}) : super(key: key);
@@ -170,7 +172,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     String passwordHash = _passwordHashController.text.trim();
 
     // Calling the login function
-    String loginResponse = await login(userName, passwordHash);
+    String loginResponse = await client.login(userName, passwordHash);
 
     if (loginResponse == "Success") {
       Navigator.pushReplacement(
@@ -226,7 +228,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     }
 
     // Calling the signup function
-    String signupResponse = await signup(
+    String signupResponse = await client.signup(
         firstName, lastName, studentID, studentEmail, userName, passwordHash);
 
     if (signupResponse == "Success") {

@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:mycampusmarketplace/main.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final String userName;
 
   HomeScreen({super.key, required this.userName});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState(userName);
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  _HomeScreenState(userName);
+  late String userName = widget.userName;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +30,7 @@ class HomeScreen extends StatelessWidget {
                     if (value == 'myListings') {
                       // Navigate to My Listings screen
                     } else if (value == 'signOut') {
-                      // Perform sign out
+                      _logout();
                     }
                   },
                   itemBuilder: (BuildContext context) =>
@@ -61,6 +70,40 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _logout() async {
+    // Calling the logout function
+    String logoutResponse = await client.logout();
+
+    if (logoutResponse == "Success") {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginSignupPage()),
+      );
+    } else {
+      _showErrorDialog(logoutResponse);
+    }
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Error"),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
