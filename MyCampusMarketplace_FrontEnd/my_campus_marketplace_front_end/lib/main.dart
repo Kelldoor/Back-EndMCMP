@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycampusmarketplace/Models/user.dart';
 import 'package:mycampusmarketplace/Repositories/userClient.dart';
 import 'package:mycampusmarketplace/Views/aboutus.dart';
 import '../views/mainMenu.dart';
@@ -174,10 +175,12 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     // Calling the login function
     String loginResponse = await client.login(userName, passwordHash);
 
+    userName = await _getUsername();
+
     if (loginResponse == "Success") {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen(userName: '')),
+        MaterialPageRoute(builder: (context) => HomeScreen(userName: userName)),
       );
     } else {
       _showErrorDialog(loginResponse);
@@ -260,6 +263,17 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         );
       },
     );
+  }
+
+  Future<String> _getUsername() async {
+    // calling the function to get a User object
+    User? user = await client.getUser();
+
+    if (user != null) {
+      return user.userName;
+    } else {
+      return client.getErrorMessage();
+    }
   }
 
   // About us page navigation

@@ -1,8 +1,11 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:mycampusmarketplace/Models/user.dart';
+
 class UserClient {
   String sessionState = "";
+  String errorMessage = "";
 
   Future<String> login(String userName, String passwordHash) async {
     try {
@@ -101,6 +104,7 @@ class UserClient {
         if (data['success']) {
           return "Success"; // Login was successful
         } else {
+          //determine error message based on API response
           if (data['reason'][0] == "not_logged_in") {
             return "This user is not logged in.";
           } else if (data['reason'][0] == "server_error") {
@@ -121,5 +125,89 @@ class UserClient {
     } catch (e) {
       return "An error occurred. Please try again later.";
     }
+  }
+
+  Future<User?> getUser() async {
+    try {
+      // Sending login request to server
+      var response = await http.post(
+        Uri.parse('http://10.0.2.2/api/fetchuser.php'),
+        headers: {'Cookie': "PHPSESSID=$sessionState"},
+      );
+
+      // Parse data response
+      var data = json.decode(response.body);
+      var userData = data['data'];
+
+      // initialize bool for new user object
+      bool admin, banned;
+
+      if (response.statusCode == 200) {
+        if (data['success']) {
+          if (userData['UserAdmin'] == 0) {
+            admin = false;
+          } else {
+            admin = true;
+          }
+
+          if (userData['UserBanned'] == 0) {
+            banned = false;
+          } else {
+            banned = true;
+          }
+
+          // return new User object
+          return User(
+              userID: userData['UserId'],
+              firstName: userData['FirstName'],
+              lastName: userData['LastName'],
+              studentID: userData['StudentId'],
+              studentEmail: userData['StudentEmail'],
+              userName: userData['Username'],
+              admin: admin,
+              banned: banned,
+              creationDate: DateTime.parse(userData['UserCreated']));
+        } else {
+          //determine error message based on API response
+          if (data['reason'][0] == "missing_data") {
+            errorMessage =
+                "The application had an error. Please contact the administrators.";
+          } else if (data['reason'][0] == "server_error") {
+            errorMessage =
+                "There was an issue with the server. Please try again later.";
+          } else if (data['reason'][0] == "invalid_session") {
+            errorMessage = "The session is no longer valid.";
+          } else if (data['reason'][0] == "not_found") {
+            errorMessage = "The requested user was not found.";
+          } else {
+            errorMessage = "An error occurred.";
+          }
+          return null;
+        }
+      } else {
+        if (data['reason'][0] == "missing_data") {
+          errorMessage =
+              "The application had an error. Please contact the administrators.";
+        } else if (data['reason'][0] == "server_error") {
+          errorMessage =
+              "There was an issue with the server. Please try again later.";
+        } else if (data['reason'][0] == "invalid_session") {
+          errorMessage = "The session is no longer valid.";
+        } else if (data['reason'][0] == "not_found") {
+          errorMessage = "The requested user was not found.";
+        } else {
+          errorMessage = "An error occurred.";
+        }
+        return null;
+      }
+    } catch (e) {
+      errorMessage = e.toString();
+      return null;
+    }
+  }
+
+  //only use for functions that don't already return a string error message, such as the getUser function
+  Future<String> getErrorMessage() async {
+    return errorMessage;
   }
 }

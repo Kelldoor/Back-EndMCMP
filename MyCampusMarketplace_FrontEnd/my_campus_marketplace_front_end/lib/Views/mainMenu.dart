@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycampusmarketplace/Models/user.dart';
 import 'package:mycampusmarketplace/main.dart';
 
 class HomeScreen extends StatefulWidget {
