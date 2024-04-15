@@ -21,7 +21,7 @@ class ItemClient {
           'itemCondition': item.itemCondition,
           'itemPrice': item.itemPrice,
           'itemQuantity': item.itemQuantity, // to be added?
-          'itemWanted': item.itemWanted ? '1' : '0',
+          'itemWanted': item.itemWanted ? '1' : '0'
         },
       );
 
