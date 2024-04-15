@@ -22,7 +22,6 @@ class ItemClient {
           'itemPrice': item.itemPrice,
           'itemQuantity': item.itemQuantity,
           'itemWanted': item.itemWanted ? '1' : '0',
-          'userID': item.userID.toString(),
         },
       );
 
