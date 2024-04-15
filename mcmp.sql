@@ -6,7 +6,7 @@ CREATE TABLE Users (
     FirstName VARCHAR(20) NOT NULL,
     LastName VARCHAR(20) NOT NULL,
     StudentID VARCHAR(20),
-    StudentEmail VARCHAR(50) UNIQUE NOT NULL CHECK (StudentEmail LIKE '%@my.sctcc.edu'), -- Constraint for ensuring email ends in @my.sctcc.edu
+StudentEmail VARCHAR(50) UNIQUE NOT NULL CHECK (StudentEmail LIKE '%@my.sctcc.edu' OR StudentEmail LIKE '%@sctcc.edu'), -- Constraint for emails to ensure it ends in either @my.sctcc.edu or @sctcc.edu
     Username VARCHAR(20) UNIQUE NOT NULL,
     PasswordHash VARCHAR(255) NOT NULL,
     UserAdmin TINYINT NOT NULL DEFAULT '0',
