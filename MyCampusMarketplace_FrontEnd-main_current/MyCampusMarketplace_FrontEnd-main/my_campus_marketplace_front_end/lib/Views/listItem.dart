@@ -3,6 +3,8 @@ import 'package:mycampusmarketplace/Repositories/itemClient.dart';
 import '../main.dart' as m;
 import 'myListings.dart';
 
+// test commit
+
 class ListItemPage extends StatefulWidget {
   final String userName;
 
@@ -21,7 +23,6 @@ class _ListItemPageState extends State<ListItemPage> {
   final TextEditingController _itemDescriptionController =
       TextEditingController();
   final ItemClient itemClient = ItemClient();
-
 
   @override
   void dispose() {
@@ -201,7 +202,7 @@ class _ListItemPageState extends State<ListItemPage> {
     String itemName = _itemNameController.text;
     String itemPrice = _itemPriceController.text;
     String itemDescription = _itemDescriptionController.text;
-    String userId = "1"; 
+    String userId = "1";
     String selectedCondition;
 
     switch (_selectedConditionIndex) {
