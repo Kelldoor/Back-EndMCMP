@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:mycampusmarketplace/Models/item.dart';
 
 // setting up item client....
+// needs to be cleaned up more + commented...
 
 const String apiAddress = "http://10.0.2.2/api/";
 
