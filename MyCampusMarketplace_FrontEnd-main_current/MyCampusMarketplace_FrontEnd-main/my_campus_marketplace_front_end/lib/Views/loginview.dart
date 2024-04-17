@@ -239,25 +239,25 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                   ),
                 ),
               ),
-              InkWell(
-  onTap: () {
-    setState(() {
-      _isLogin = !_isLogin;
-    });
-  },
-  highlightColor: Color.fromARGB(219, 208, 138, 116), // This replaces overlayColor
-  child: TextButton(
-    onPressed: () {}, // Empty onPressed because onTap is handled by InkWell
-    child: Text(
-      _isLogin ? 'Create an account' : 'Have an account? Sign in',
-      style: TextStyle(
-        fontFamily: 'Quicksand',
-        color: Color.fromRGBO(129, 55, 16, 1),
-      ),
-    ),
-  ),
-),
-
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    _isLogin = !_isLogin;
+                  });
+                },
+                style: ButtonStyle(
+                  overlayColor: MaterialStateColor.resolveWith(
+                    (states) => Color.fromARGB(219, 208, 138, 116),
+                  ),
+                ),
+                child: Text(
+                  _isLogin ? 'Create an account' : 'Have an account? Sign in',
+                  style: TextStyle(
+                    fontFamily: 'Quicksand',
+                    color: Color.fromRGBO(129, 55, 16, 1),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

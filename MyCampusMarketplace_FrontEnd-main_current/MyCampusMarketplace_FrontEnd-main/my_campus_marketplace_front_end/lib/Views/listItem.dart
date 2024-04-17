@@ -3,7 +3,9 @@ import 'package:mycampusmarketplace/Repositories/itemClient.dart';
 import '../main.dart' as m;
 import 'myListings.dart';
 
-// test commit
+// To Do
+// Handle UserID dynamically instead of using a hard-coded value
+// Clean up code as needed
 
 class ListItemPage extends StatefulWidget {
   final String userName;
@@ -22,6 +24,8 @@ class _ListItemPageState extends State<ListItemPage> {
   final TextEditingController _itemPriceController = TextEditingController();
   final TextEditingController _itemDescriptionController =
       TextEditingController();
+  final TextEditingController _quantityController = TextEditingController();
+
   final ItemClient itemClient = ItemClient();
 
   @override
@@ -145,6 +149,15 @@ class _ListItemPageState extends State<ListItemPage> {
               ],
             ),
             SizedBox(height: 16.0),
+            Text('Quantity'), // New field: Quantity
+            TextFormField(
+              controller: _quantityController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                hintText: 'Enter quantity',
+              ),
+            ),
+            SizedBox(height: 16.0),
             Text('Item Description'),
             TextField(
               controller: _itemDescriptionController,
@@ -202,9 +215,10 @@ class _ListItemPageState extends State<ListItemPage> {
     String itemName = _itemNameController.text;
     String itemPrice = _itemPriceController.text;
     String itemDescription = _itemDescriptionController.text;
-    String userId = "1";
+    String itemQuantity = _quantityController.text;
+    String userId = "1"; // this value is hard coded, not dynamic yet
     String selectedCondition;
-
+    // condition check for item insertion
     switch (_selectedConditionIndex) {
       case 1:
         selectedCondition = 'New';
@@ -221,7 +235,8 @@ class _ListItemPageState extends State<ListItemPage> {
       default:
         selectedCondition = '';
     }
-
+    // create session state via user client
+    // and post data from list item page
     String sessionState = m.client.sessionState;
     itemClient
         .postItem(
@@ -229,6 +244,7 @@ class _ListItemPageState extends State<ListItemPage> {
       itemDescription,
       itemPrice,
       selectedCondition,
+      itemQuantity,
       userId,
       sessionState,
     )

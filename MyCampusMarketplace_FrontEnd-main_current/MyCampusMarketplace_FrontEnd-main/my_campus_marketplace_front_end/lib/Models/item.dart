@@ -4,7 +4,7 @@ class Item {
   String itemDesc;
   String itemCondition;
   double itemPrice;
-  //int itemQuantity;
+  int itemQuantity;
   bool itemWanted;
   //String itemImage;
   int userId;
@@ -16,7 +16,7 @@ class Item {
     required this.itemDesc,
     required this.itemCondition,
     required this.itemPrice,
-    //required this.itemQuantity,
+    required this.itemQuantity,
     required this.itemWanted,
     //required this.itemImage,
     required this.userId,
