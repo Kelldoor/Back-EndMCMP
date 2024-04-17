@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:mycampusmarketplace/Models/item.dart';
 
-// setting up item client...
+// setting up item client....
 
 const String apiAddress = "http://10.0.2.2/api/";
 
