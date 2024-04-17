@@ -215,9 +215,10 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         _showErrorDialog("Please enter your student email.");
         return;
       }
-      if (!studentEmail.endsWith('@my.sctcc.edu')) {
+      if (!studentEmail.endsWith('@my.sctcc.edu') &&
+          !studentEmail.endsWith('@sctcc.edu')) {
         _showErrorDialog(
-            "Please enter a valid SCTCC email address ending in @my.sctcc.edu");
+            "Please enter a valid SCTCC email address ending in @my.sctcc.edu or @sctcc.edu");
         return;
       }
       if (passwordHash.length < 8) {

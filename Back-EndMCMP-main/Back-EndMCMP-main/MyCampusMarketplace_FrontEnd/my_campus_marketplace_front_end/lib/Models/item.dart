@@ -1,25 +1,24 @@
 class Item {
-  int itemID;
-  String itemName;
-  String itemDesc;
-  String itemCondition;
-  DateTime itemAdded;
-  String itemPrice;
-  String itemQuantity;
-  bool itemWanted;
-  String imagePath;
-  int userID;
+  final int itemId;
+  final String itemName;
+  final String itemDesc;
+  final String itemCondition;
+  final double itemPrice;
+  final bool itemWanted;
+  final int userId;
+  final DateTime itemAdded;
+
 
   Item({
-    required this.itemID,
+    required this.itemId,
     required this.itemName,
     required this.itemDesc,
     required this.itemCondition,
-    required this.itemAdded,
     required this.itemPrice,
-    required this.itemQuantity,
     required this.itemWanted,
-    required this.imagePath,
-    required this.userID,
+    required this.userId,
+    required this.itemAdded,
   });
+
+
 }

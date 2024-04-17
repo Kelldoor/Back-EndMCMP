@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mycampusmarketplace/Views/mainMenu.dart';
+import 'package:mycampusmarketplace/Models/item.dart'; // Import Item model
+import 'package:mycampusmarketplace/repositories/itemClient.dart'; // Import ItemClient
 
 class ListItemPage extends StatefulWidget {
   @override
@@ -12,6 +14,9 @@ class _ListItemPageState extends State<ListItemPage> {
   final TextEditingController _itemPriceController = TextEditingController();
   final TextEditingController _itemDescriptionController =
       TextEditingController();
+
+  // Create an instance of ItemClient
+  ItemClient itemClient = ItemClient();
 
   @override
   void dispose() {
@@ -32,7 +37,7 @@ class _ListItemPageState extends State<ListItemPage> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                Text('Welcome, User'), 
+                Text('Welcome, User'),
                 PopupMenuButton<String>(
                   onSelected: (value) {
                     if (value == 'myListings') {
@@ -168,9 +173,47 @@ class _ListItemPageState extends State<ListItemPage> {
     String itemName = _itemNameController.text;
     String itemPrice = _itemPriceController.text;
     String itemDescription = _itemDescriptionController.text;
-    int selectedCondition = _selectedConditionIndex;
+    String userId =
+        ""; // Replace userId with the actual user ID from your application logic
+    String selectedCondition;
 
-    // Now you can use the itemName, itemPrice, itemDescription, and selectedCondition
-    // variables to perform your form submission logic
+    switch (_selectedConditionIndex) {
+      case 1:
+        selectedCondition = 'New';
+        break;
+      case 2:
+        selectedCondition = 'Used - Like New';
+        break;
+      case 3:
+        selectedCondition = 'Used - Good';
+        break;
+      case 4:
+        selectedCondition = 'Used - Fair';
+        break;
+      default:
+        selectedCondition = '';
+    }
+
+    // Example: Call postItem method from ItemClient
+    itemClient
+        .postItem(
+      itemName,
+      itemDescription,
+      itemPrice,
+      selectedCondition,
+      userId,
+    )
+        .then((response) {
+      // Handle the response here
+      // For example, show a SnackBar with the response message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(response),
+        ),
+      );
+    }).catchError((error) {
+      // Handle errors if any
+      print(error);
+    });
   }
 }
