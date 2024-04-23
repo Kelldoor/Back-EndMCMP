@@ -3,8 +3,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:mycampusmarketplace/Models/item.dart';
 
-// Commented itemData on line 277
+//const String apiAddress = "http://10.0.2.2/api/";
 const String apiAddress = "https://helpmewithfinals.com/api/";
+
 
 class ItemClient {
   String errorMessage = "";
