@@ -6,6 +6,7 @@ import '../main.dart' as m;
 import 'myListings.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
 
 class ListItemPage extends StatefulWidget {
   final String userName;
@@ -28,7 +29,7 @@ class _ListItemPageState extends State<ListItemPage> {
 
   final ItemClient itemClient = ItemClient();
 
-  List<String> selectedImages = [];
+  List<String> selectedImages = []; //plan on saving one image
 
   @override
   void dispose() {
@@ -43,16 +44,23 @@ class _ListItemPageState extends State<ListItemPage> {
   Future<void> _pickImages() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
     if (pickedFile != null) {
-      // Save the file to the temporary directory
+      // extracting the file extension
+      final fileExtension = path.extension(pickedFile.path);
+      // generate a unique filename based on current timestamp
+      final uniqueFileName =
+          DateTime.now().millisecondsSinceEpoch.toString() + fileExtension;
+
+      // save the file to the temporary directory with the unique filename
       final tempDir = await getTemporaryDirectory();
       final tempPath = tempDir.path;
       final File newImage =
-          await File(pickedFile.path).copy('$tempPath/image.png');
-      print('Image saved to temporary directory: ${newImage.path}');
+          await File(pickedFile.path).copy('$tempPath/$uniqueFileName');
 
       setState(() {
-        selectedImages.add(newImage.path);
+        selectedImages.clear(); // clear the previous selected image
+        selectedImages.add(newImage.path); // add the new selected image
       });
     }
   }
@@ -324,4 +332,3 @@ class _ListItemPageState extends State<ListItemPage> {
     });
   }
 }
-
