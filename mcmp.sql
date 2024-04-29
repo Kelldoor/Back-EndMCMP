@@ -10,7 +10,7 @@ StudentEmail VARCHAR(50) UNIQUE NOT NULL CHECK (StudentEmail LIKE '%@my.sctcc.ed
     Username VARCHAR(20) UNIQUE NOT NULL,
     PasswordHash VARCHAR(255) NOT NULL,
     UserAdmin TINYINT NOT NULL DEFAULT '0',
-    UserBanned TINYINT NOT NULL DEFAULT '0', 
+    UserBanned TINYINT NOT NULL DEFAULT '0',
     UserCreated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -25,10 +25,11 @@ CREATE TABLE Items (
 	ItemWanted TINYINT NOT NULL CHECK (ItemWanted IN (0,1)), -- Constraint to check if an item is wanted.
 	ItemImage VARCHAR(50) NOT NULL,
 	UserID INT NOT NULL,
-	FOREIGN KEY (UserID) REFERENCES Users(UserID)
+	FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FULLTEXT (ItemName),
+    FULLTEXT (ItemDesc)
 );
 
 DROP TABLE Items;
 DROP TABLE Users;
 DROP DATABASE MCMP;
-
